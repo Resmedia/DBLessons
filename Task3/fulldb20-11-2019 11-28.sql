@@ -979,7 +979,7 @@ INSERT INTO `profiles` (`user_id`, `sex`, `birthday`, `hometown`, `photo_id`) VA
 INSERT INTO `profiles` (`user_id`, `sex`, `birthday`, `hometown`, `photo_id`) VALUES (47, 1, '0000-00-00 00:00:00', 'New Earlene', 47);
 INSERT INTO `profiles` (`user_id`, `sex`, `birthday`, `hometown`, `photo_id`) VALUES (48, 0, '0000-00-00 00:00:00', 'Andrewmouth', 48);
 INSERT INTO `profiles` (`user_id`, `sex`, `birthday`, `hometown`, `photo_id`) VALUES (49, 1, '0000-00-00 00:00:00', 'Harmonyshire', 49);
-INSERT INTO `profiles` (`user_id`, `sex`, `birthday`, `hometown`, `photo_id`) VALUES (50, 0, '0000-00-00 00:00:00', 'O\'Haraton', 50);
+INSERT INTO `profiles` (`user_id`, `sex`, `birthday`, `hometown`, `photo_id`) VALUES (50, 0, '0000-00-00 00:00:00', 'O Haraton', 50);
 
 
 #

@@ -13,7 +13,7 @@ CREATE TABLE users (
   last_name VARCHAR(100) NOT NULL,
   email VARCHAR(120) NOT NULL UNIQUE,
   phone VARCHAR(120) NOT NULL UNIQUE,
-  status SMALLINT DEFAULT 0, -- If not confirm email or phone 0, else 1 id deleted -1
+  status SMALLINT DEFAULT 0,
   time_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -22,10 +22,10 @@ CREATE TABLE users (
 CREATE TABLE profiles (
   user_id INT UNSIGNED NOT NULL PRIMARY KEY,
   sex SMALLINT(1) NOT NULL,
-  birthday TIMESTAMP NOT NULL DEFAULT 0,
+  birthday TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   hometown VARCHAR(100),
   photo_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (user_id)  REFERENCES users (id) --if user was delete profile will be delete too how i understand
+  FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 -- Messages table
@@ -37,21 +37,20 @@ CREATE TABLE messages (
   is_important SMALLINT DEFAULT 0,
   is_delivered SMALLINT DEFAULT 0,
   time_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- For editing message or deleting
+  time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-# Statuses put in table friendship
-
+-- Statuses put in table friendship
 -- Board news table
 CREATE TABLE board_news (
-  id  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-  user_id INT UNSIGNED NOT NULL PRIMARY KEY,
+  id  INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
   news_text TEXT NOT NULL,
   news_owner INT UNSIGNED NOT NULL,
   news_like INT UNSIGNED NOT NULL,
-  status SMALLINT DEFAULT 1, -- Published 1, moderation 0, deleted -1
+  status SMALLINT DEFAULT 1,
   time_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- For editing news or deleting
+  time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id)  REFERENCES users (id)
 );
 
@@ -59,8 +58,8 @@ CREATE TABLE board_news (
 CREATE TABLE friendship (
   user_id INT UNSIGNED NOT NULL,
   friend_id INT UNSIGNED NOT NULL,
-  status SMALLINT DEFAULT 0, -- If friend push btn confirm, then status 1 else status 0
-  time_confirm INT(11) DEFAULT 0, -- For UNIX TIME
+  status SMALLINT DEFAULT 0,
+  time_confirm INT(11) DEFAULT 0,
   time_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, # For UNIX TIME
   PRIMARY KEY (user_id, friend_id),
   FOREIGN KEY (user_id)  REFERENCES users (id),
@@ -70,7 +69,7 @@ CREATE TABLE friendship (
 -- Group table
 CREATE TABLE communities (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  status SMALLINT DEFAULT 1, -- Published 1, moderation 0, deleted -1
+  status SMALLINT DEFAULT 1,
   name VARCHAR(150) NOT NULL UNIQUE
 );
 
@@ -90,7 +89,7 @@ CREATE TABLE media (
   user_id INT UNSIGNED NOT NULL,
   filename VARCHAR(255) NOT NULL,
   size INT NOT NULL, 
-  metadata TEXT, #for JSON
+  metadata TEXT,
   time_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -101,8 +100,8 @@ CREATE TABLE photos (
   media_type_id INT UNSIGNED NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   filename VARCHAR(255) NOT NULL,
-  size INT NOT NULL, 
-  metadata TEXT, -- for JSON
+  size INT NOT NULL,
+  metadata TEXT,
   time_create TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   time_update TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id)  REFERENCES users (id)
